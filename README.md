@@ -1,5 +1,6 @@
-# react-amplify
-Build a React App using AWS Amplify in Simple Steps
+# Build a React App using AWS Amplify in Simple Steps
+
+![Alt AWS Amplify + React](/part-1-authentication/public/amplify_react.jpeg)
 
 Complete instructions available in my Medium Posts:
 

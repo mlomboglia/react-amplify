@@ -9,3 +9,7 @@ Part 1 - Authentication
 https://medium.com/better-programming/build-a-react-app-with-authentication-using-aws-amplify-49db1dfdc290
 
 Part 2 - GraphQL
+
+https://medium.com/better-programming/build-a-react-app-using-aws-amplify-in-simple-steps-part-2-59812ea29192
+
+Part 3 - Storage and Analytics

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { withAuthenticator } from "aws-amplify-react"; // or 'aws-amplify-react-native';
+import { S3Album, withAuthenticator } from "aws-amplify-react"; // or 'aws-amplify-react-native';
 import { Auth, API, graphqlOperation, Analytics, Storage } from "aws-amplify";
 
 const listTodos = `query listTodos {
@@ -71,6 +71,11 @@ class App extends Component {
     })
   }
 
+  fileToKey(data) {
+    const { name, size, type } = data;
+    return 'test_' + name;
+  }
+
   render() {
     return (
       <div className="App">
@@ -80,6 +85,7 @@ class App extends Component {
         <button onClick={this.recordEvent}>Record Event</button>
         <p> Pick a file</p>
         <input type="file" onChange={this.uploadFile} />
+        <S3Album path="pictures/" picker fileToKey={this.fileToKey} />
       </div>
     );
   }

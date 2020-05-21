@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { withAuthenticator } from "aws-amplify-react"; // or 'aws-amplify-react-native';
+import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { API, graphqlOperation } from "aws-amplify";
 
 const listTodos = `query listTodos {
@@ -44,6 +44,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <AmplifySignOut />
         <p> Click a button </p>
         <button onClick={this.listQuery}>GraphQL List Query</button>
         <button onClick={this.todoMutation}>GraphQL Todo Mutation</button>

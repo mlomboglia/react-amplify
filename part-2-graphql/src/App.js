@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { API, graphqlOperation } from "aws-amplify";
+import "@aws-amplify/ui/dist/style.css";
 
 const listTodos = `query listTodos {
   listTodos{

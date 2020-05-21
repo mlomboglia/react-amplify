@@ -13,3 +13,5 @@ Part 2 - GraphQL
 https://medium.com/better-programming/build-a-react-app-using-aws-amplify-in-simple-steps-part-2-59812ea29192
 
 Part 3 - Storage and Analytics
+
+https://medium.com/better-programming/build-a-react-app-using-aws-amplify-in-simple-steps-part-3-12c1b7746450

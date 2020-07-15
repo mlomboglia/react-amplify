@@ -21,7 +21,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-react-amplify-dev-160118-deployment/amplify-cfn-templates/auth/reactamplifyf6aa2b37-cloudformation-template.yml",
 				"logicalId": "authreactamplifyf6aa2b37"
 			},
-			"lastPushTimeStamp": "2020-01-09T16:55:14.147Z",
+			"lastPushTimeStamp": "2020-07-15T11:21:02.493Z",
 			"output": {
 				"AppClientSecret": "188qgo65vm7st39sapsds21j5qk58k98113esjbr7a59mipog1mo",
 				"UserPoolId": "eu-west-2_9SYllDvTH",
@@ -55,7 +55,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-react-amplify-dev-160118-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"logicalId": "apitodo"
 			},
-			"lastPushTimeStamp": "2020-01-09T16:55:14.132Z",
+			"lastPushTimeStamp": "2020-07-15T11:21:02.495Z",
 			"lastPushDirHash": "C7fZTNCa3xA6/K2ZdDhpMECH+f4="
 		}
 	},
@@ -67,7 +67,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-react-amplify-dev-160118-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
 				"logicalId": "analyticsreactamplify"
 			},
-			"lastPushTimeStamp": "2020-01-09T16:55:14.135Z",
+			"lastPushTimeStamp": "2020-07-15T11:21:02.497Z",
 			"output": {
 				"appName": "reactamplify-dev",
 				"Region": "eu-west-1",
@@ -84,12 +84,34 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-react-amplify-dev-160118-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
 				"logicalId": "storagestorage"
 			},
-			"lastPushTimeStamp": "2020-01-09T16:55:14.147Z",
+			"lastPushTimeStamp": "2020-07-15T11:21:02.502Z",
 			"output": {
 				"BucketName": "react-amplify5ac7f45e5e6c45e89e241be75a0f5253dev-dev",
 				"Region": "eu-west-2"
 			},
 			"lastPushDirHash": "T+RbJ27fA9FfO72BykmtBn70lc8="
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-react-amplify-dev-160118-deployment/amplify-cfn-templates/hosting/template.json",
+				"logicalId": "hostingS3AndCloudFront"
+			},
+			"lastPushTimeStamp": "2020-07-15T11:21:02.519Z",
+			"output": {
+				"CloudFrontSecureURL": "https://d2yvzqhpoaj05b.cloudfront.net",
+				"S3BucketSecureURL": "https://react-amplify-20200715121616-hostingbucket-dev.s3.amazonaws.com",
+				"CloudFrontOriginAccessIdentity": "E19HHP576WIK5",
+				"WebsiteURL": "http://react-amplify-20200715121616-hostingbucket-dev.s3-website.eu-west-2.amazonaws.com",
+				"CloudFrontDistributionID": "E2YZW7NGCTOCSM",
+				"Region": "eu-west-2",
+				"HostingBucketName": "react-amplify-20200715121616-hostingbucket-dev",
+				"CloudFrontDomainName": "d2yvzqhpoaj05b.cloudfront.net"
+			},
+			"lastPushDirHash": "ZZZ4KayYbZCpgVOIXI4AyGcn2BU="
 		}
 	}
 }

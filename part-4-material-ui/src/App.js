@@ -1,104 +1,102 @@
-import React, { Component } from "react";
-import "./App.css";
-import { S3Album, withAuthenticator } from "aws-amplify-react"; // or 'aws-amplify-react-native';
-import { API, graphqlOperation, Storage } from "aws-amplify";
+/* src/App.js */
+import React, { useEffect, useState } from "react";
+import { API, graphqlOperation } from "aws-amplify";
+import { createTodo } from "./graphql/mutations";
+import { listTodos } from "./graphql/queries";
+import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 
-import { makeStyles } from "@material-ui/core/styles";
+const initialState = { name: "", description: "" };
 
-import NavBar from './components/NavBar/NavBar'
-import SideDrawer from './components/SideDrawer/SideDrawer'
+const App = () => {
+  const [formState, setFormState] = useState(initialState);
+  const [todos, setTodos] = useState([]);
 
-const listTodos = `query listTodos {
-  listTodos{
-    items{
-      id
-      name
-      description
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
+  function setInput(key, value) {
+    setFormState({ ...formState, [key]: value });
+  }
+
+  async function fetchTodos() {
+    try {
+      const todoData = await API.graphql(graphqlOperation(listTodos));
+      const todos = todoData.data.listTodos.items;
+      setTodos(todos);
+    } catch (err) {
+      console.log("error fetching todos");
     }
   }
-}`;
 
-const addTodo = `mutation createTodo($name:String! $description: String!) {
-  createTodo(input:{
-    name:$name
-    description:$description
-  }){
-    id
-    name
-    description
+  async function addTodo() {
+    try {
+      if (!formState.name || !formState.description) return;
+      const todo = { ...formState };
+      setTodos([...todos, todo]);
+      setFormState(initialState);
+      await API.graphql(graphqlOperation(createTodo, { input: todo }));
+    } catch (err) {
+      console.log("error creating todo:", err);
+    }
   }
-}`;
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  }
-}));
-
-function App() {
-
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false
-  });
-
-  const classes = useStyles();
-
-  const todoMutation = async () => {
-    const todoDetails = {
-      name: "Party tonight!",
-      description: "Amplify CLI rocks!"
-    };
-
-    const newTodo = await API.graphql(graphqlOperation(addTodo, todoDetails));
-    alert(JSON.stringify(newTodo));
-  };
-
-  const listQuery = async () => {
-    console.log("listing todos");
-    const allTodos = await API.graphql(graphqlOperation(listTodos));
-    alert(JSON.stringify(allTodos));
-  };
-
-  const uploadFile = evt => {
-    const file = evt.target.files[0];
-    const name = file.name;
-
-    Storage.put(name, file).then(() => {
-      this.setState({ file: name });
-    });
-  };
 
   return (
-    <div className={classes.root}>
-      <NavBar />
-      <SideDrawer />
+    <div style={styles.container}>
+      <AmplifySignOut />
+      <h2>Amplify Todos</h2>
+      <input
+        onChange={(event) => setInput("name", event.target.value)}
+        style={styles.input}
+        value={formState.name}
+        placeholder="Name"
+      />
+      <input
+        onChange={(event) => setInput("description", event.target.value)}
+        style={styles.input}
+        value={formState.description}
+        placeholder="Description"
+      />
+      <button style={styles.button} onClick={addTodo}>
+        Create Todo
+      </button>
+      {todos.map((todo, index) => (
+        <div key={todo.id ? todo.id : index} style={styles.todo}>
+          <p style={styles.todoName}>{todo.name}</p>
+          <p style={styles.todoDescription}>{todo.description}</p>
+        </div>
+      ))}
     </div>
   );
-}
-
-const signUpConfig = {
-  defaultCountryCode: "86",
-  usernameAttributes: "email",
-  hiddenDefaults: ["username", "phone_number", "email"],
-  signUpFields: [
-    {
-      label: "Email",
-      key: "username",
-      required: true,
-      displayOrder: 1,
-      type: "string"
-    },
-    {
-      label: "Password",
-      key: "password",
-      required: true,
-      displayOrder: 2,
-      type: "password"
-    }
-  ]
 };
 
-export default withAuthenticator(App, { signUpConfig });
+const styles = {
+  container: {
+    width: 400,
+    margin: "0 auto",
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    padding: 20,
+  },
+  todo: { marginBottom: 15 },
+  input: {
+    border: "none",
+    backgroundColor: "#ddd",
+    marginBottom: 10,
+    padding: 8,
+    fontSize: 18,
+  },
+  todoName: { fontSize: 20, fontWeight: "bold" },
+  todoDescription: { marginBottom: 0 },
+  button: {
+    backgroundColor: "black",
+    color: "white",
+    outline: "none",
+    fontSize: 18,
+    padding: "12px 0px",
+  },
+};
+
+export default withAuthenticator(App, true);

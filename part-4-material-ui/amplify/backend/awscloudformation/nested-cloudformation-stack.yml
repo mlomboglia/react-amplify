@@ -198,6 +198,16 @@
 				}
 			}
 		},
+		"hostingS3AndCloudFront": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplify-react-amplify-dev-160118-deployment/amplify-cfn-templates/hosting/template.json",
+				"Parameters": {
+					"bucketName": "react-amplify-20200715121616-hostingbucket",
+					"env": "dev"
+				}
+			}
+		},
 		"UpdateRolesWithIDPFunction": {
 			"DependsOn": [
 				"AuthRole",
